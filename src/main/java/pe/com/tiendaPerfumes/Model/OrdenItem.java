@@ -22,8 +22,9 @@ public class OrdenItem {
     @ManyToOne
     @JoinColumn(name = "id_perfume")
     private Perfume perfume;
-
+    @JoinColumn(name = "cantidad")
     private int cantidad;
+    @Column(name = "precio_unitario")
     private double precioUnitario;
 }
 

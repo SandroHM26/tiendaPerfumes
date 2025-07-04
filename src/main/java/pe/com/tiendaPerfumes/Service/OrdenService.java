@@ -1,6 +1,9 @@
 package pe.com.tiendaPerfumes.Service;
 
 import org.springframework.stereotype.Service;
+
+import pe.com.tiendaPerfumes.DTO.OrdenDTO;
+import pe.com.tiendaPerfumes.DTO.OrdenItemDTO;
 import pe.com.tiendaPerfumes.Model.Orden;
 import pe.com.tiendaPerfumes.Repository.OrdenRepository;
 
@@ -36,5 +39,29 @@ public class OrdenService {
     public void deleteById(Long id) {
         ordenRepository.deleteById(id);
     }
+
+    public List<OrdenDTO> obtenerOrdenesDTO() {
+    List<Orden> ordenes = ordenRepository.findAll();
+
+    return ordenes.stream().map(orden -> {
+        OrdenDTO dto = new OrdenDTO();
+        dto.setId(orden.getId());
+        dto.setFecha(orden.getFecha());
+        dto.setTotal(orden.getTotal());
+        dto.setEstado(orden.getEstado());
+
+        List<OrdenItemDTO> items = orden.getOrdenItems().stream().map(item -> {
+            OrdenItemDTO itemDTO = new OrdenItemDTO();
+            itemDTO.setCantidad(item.getCantidad());
+            itemDTO.setPrecioUnitario(item.getPrecioUnitario());
+            itemDTO.setNombrePerfume(item.getPerfume().getNombre()); // Asumiendo que tienes .getNombre()
+            return itemDTO;
+        }).toList();
+
+        dto.setOrdenItems(items);
+            return dto;
+        }).toList();
+    }
+
 }
 

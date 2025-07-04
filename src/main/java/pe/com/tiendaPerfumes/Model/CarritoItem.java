@@ -22,7 +22,8 @@ public class CarritoItem {
     @ManyToOne
     @JoinColumn(name = "id_perfume")
     private Perfume perfume;
-
+   @Column(name = "cantidad")
     private int cantidad;
+    @Column(name = "precio_unitario")
     private double precioUnitario;
 }

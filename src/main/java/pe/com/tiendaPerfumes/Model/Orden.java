@@ -18,6 +18,7 @@ public class Orden {
 
     @OneToOne
     @JoinColumn(name = "id_carrito")
+    @JsonManagedReference
     private Carrito carrito;
 
     private LocalDateTime fecha;

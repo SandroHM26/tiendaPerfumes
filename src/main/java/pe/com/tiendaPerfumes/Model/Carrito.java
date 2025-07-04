@@ -5,8 +5,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "carrito")
 @Data
@@ -27,6 +29,7 @@ public class Carrito {
     private List<CarritoItem> carritoItems;
 
     @OneToOne(mappedBy = "carrito")
+    @JsonBackReference
     private Orden orden;
 }
 

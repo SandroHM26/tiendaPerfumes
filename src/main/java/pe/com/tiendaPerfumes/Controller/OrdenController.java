@@ -1,5 +1,6 @@
 package pe.com.tiendaPerfumes.Controller;
 
+import pe.com.tiendaPerfumes.DTO.OrdenDTO;
 import pe.com.tiendaPerfumes.Model.Orden;
 import pe.com.tiendaPerfumes.Service.OrdenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ public class OrdenController {
     @Autowired
     private OrdenService ordenService;
 
-    @GetMapping
-    public List<Orden> listarOrdenes() {
-        return ordenService.findAll();
+   @GetMapping
+    public List<OrdenDTO> listarOrdenesDTO() {
+         return ordenService.obtenerOrdenesDTO();
     }
 
     @GetMapping("/{id}")
