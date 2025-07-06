@@ -1,5 +1,7 @@
 package pe.com.tiendaPerfumes.Controller;
 
+import pe.com.tiendaPerfumes.DTO.DecantDTO;
+import pe.com.tiendaPerfumes.DTO.PerfumeDTO;
 import pe.com.tiendaPerfumes.Model.Perfume;
 import pe.com.tiendaPerfumes.Service.PerfumeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,31 @@ public class PerfumeController {
     private PerfumeService perfumeService;
 
     @GetMapping
-    public List<Perfume> listarPerfumes() {
-        return perfumeService.findAll();
+    public List<PerfumeDTO> listarPerfumes() {
+        return perfumeService.findAll().stream().map(this::convertToDTO).toList();
+    }
+
+    private PerfumeDTO convertToDTO(Perfume perfume) {
+        PerfumeDTO dto = new PerfumeDTO();
+        dto.setId(perfume.getId());
+        dto.setNombre(perfume.getNombre());
+        dto.setMarca(perfume.getMarca());   
+        dto.setDescripcion(perfume.getDescripcion());
+        dto.setPrecio(perfume.getPrecio());
+        dto.setStock(perfume.getStock());
+
+        if (perfume.getDecants() != null) {
+            dto.setDecants(perfume.getDecants().stream().map(decant -> {
+                DecantDTO d = new DecantDTO();
+                d.setId(decant.getId());
+                d.setVolumenMl(decant.getVolumen_ml());
+                d.setPrecio(decant.getPrecio());
+                d.setPerfumeId(perfume.getId());
+                return d;
+        }).toList());
+        }
+
+        return dto;
     }
 
     @GetMapping("/{id}")
