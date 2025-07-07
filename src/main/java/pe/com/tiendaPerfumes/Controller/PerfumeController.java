@@ -1,5 +1,4 @@
 package pe.com.tiendaPerfumes.Controller;
-
 import pe.com.tiendaPerfumes.DTO.DecantDTO;
 import pe.com.tiendaPerfumes.DTO.PerfumeDTO;
 import pe.com.tiendaPerfumes.Model.Perfume;
@@ -9,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/perfumes")
 public class PerfumeController {
