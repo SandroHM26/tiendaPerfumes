@@ -6,7 +6,7 @@ function App() {
   const [decantSeleccionado, setDecantSeleccionado] = useState(null);
 
   useEffect(() => {
-    fetch('http://3.83.172.210:8080/api/perfumes')
+    fetch(import.meta.env.VITE_API_URL + '/api/perfumes')
       .then(res => res.json())
       .then(data => setPerfumes(data))
       .catch(err => console.error('Error al obtener perfumes:', err));
